@@ -1,5 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Media Keys */
+#include <X11/XF86keysym.h>
+
 /* Theming */
 #include "dwmthemes/gruv.h" /* Include one of the files in the themes folder */
 
@@ -34,6 +37,11 @@ static const unsigned int alphas[][3] = {
   [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
   [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
+
+/* media keys */
+static const char *upvol[]     = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *downvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *mutevol[]   = { "/usr/bin/pactl", "set-sink-mute", "0", "toggle", NULL };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -115,6 +123,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+        { 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+        { 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
+        { 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
 };
 
 /* button definitions */
